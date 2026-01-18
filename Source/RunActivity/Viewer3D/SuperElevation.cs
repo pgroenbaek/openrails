@@ -70,8 +70,12 @@ namespace Orts.Viewer3D
                 if (shape.RoadShape)
                     return false; // Roads don't use superelevation, no use in processing them.
 
-                // Can't render superelevation on tunnel shapes
-                dontRender = shape.TunnelShape;
+                // Only render superelevation in tunnels if explicitly enabled in the .trk
+                if (!viewer.Simulator.TRK.Tr_RouteFile.EnableVisualTunnelSuperElevation)
+                {
+                    dontRender = shape.TunnelShape;
+                }
+
                 // Can't render superelevation and shouldn't have physics superelevation on junctions and crossovers
                 dontRender |= removePhys = (shape.NumPaths > 1 && shape.ClearanceDistance != 0);
                 SectionIdxs = shape.SectionIdxs;

@@ -110,6 +110,7 @@ namespace Orts.Formats.Msts
                 new STFReader.TokenProcessor("ortssuperelevation", ()=>{ SuperElevation.Add(new SuperElevationStandard(stf)); }),
                 new STFReader.TokenProcessor("trackgauge", ()=>{ RouteGaugeM = stf.ReadFloatBlock(STFReader.UNITS.Distance, null); }),
                 new STFReader.TokenProcessor("ortsforcesuperelevation", ()=>{ SuperElevationMode = stf.ReadBoolBlock(false) ? 1 : 0; }),
+                new STFReader.TokenProcessor("ortsenablevisualtunnelsuperelevation", ()=>{ EnableVisualTunnelSuperElevation = stf.ReadBoolBlock(false); }),
                 // images
                 new STFReader.TokenProcessor("graphic", ()=>{ Thumbnail = stf.ReadStringBlock(null); }),
                 new STFReader.TokenProcessor("loadingscreen", ()=>{ LoadingScreen = stf.ReadStringBlock(null); }),
@@ -166,6 +167,7 @@ namespace Orts.Formats.Msts
 		public float TempRestrictedSpeed = -1f;
         public float RouteGaugeM; // Track gauge used by this route in meters. FUTURE: Better handling of track gauge to support routes with mixed gauges
         public int SuperElevationMode = -1; // -1: use simulator setting, 0: force disable visual superelevation, 1: force enable visual superelevation
+        public bool EnableVisualTunnelSuperElevation = false; // Enable visual superelevation in tunnels, disabled by default.
         public Interpolator SuperElevationHgtpRadiusM; // Superelevation of tracks as a function of radius, deprecated
         public List<SuperElevationStandard> SuperElevation = new List<SuperElevationStandard>();
 
